@@ -1,3 +1,15 @@
 {
-    "java.configuration.updateBuildConfiguration": "automatic"
+    "java.configuration.updateBuildConfiguration": "disabled",
+    "java.home": "C:/Users/josew/AppData/Local/Programs/AdoptOpenJDK/jdk-11.0.10.9-hotspot",
+    "java.configuration.runtimes": [
+        {
+          "name": "JavaSE-1.8",
+          "path": "C:/ADP/Java_JDK_8",
+          "default": true
+        },
+        {
+          "name": "JavaSE-11",
+          "path": "C:/Users/josew/AppData/Local/Programs/AdoptOpenJDK/jdk-11.0.10.9-hotspot",
+        }
+      ]
 }
