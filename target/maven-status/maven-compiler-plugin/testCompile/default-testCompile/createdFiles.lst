@@ -1,2 +1,4 @@
-CucumberBasic\RunCucumberTest.class
+ExternalDefinitions\StepDefinitions.class
+CucumberBasic\ContextSteps.class
 CucumberBasic\StepDefinitions.class
+CucumberBasic\RunCucumberTest.class

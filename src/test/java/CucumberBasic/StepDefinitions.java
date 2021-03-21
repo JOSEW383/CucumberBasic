@@ -4,7 +4,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+//import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -21,12 +21,20 @@ public class StepDefinitions {
     int TIME_WAIT = 5;
     WebDriver driver = null;
     WebDriverWait wait = null;
+    private ContextSteps contextSteps;
+
+    // PicoContainer injects class ContextSteps
+    public StepDefinitions(ContextSteps contextSteps) {
+        this.contextSteps = contextSteps;
+    }
 
     // -------------Setup&Terminate-------------//
 
     @Before
     public void setUp() {
-        System.setProperty("webdriver.chrome.driver", "src/test/resources/webDriver/chromedriver.exe");
+        driver = contextSteps.getDriver();
+        driver.manage().timeouts().implicitlyWait(TIME_WAIT, TimeUnit.SECONDS);
+        wait = new WebDriverWait(driver, TIME_WAIT);
     }
 
     @After
@@ -40,14 +48,7 @@ public class StepDefinitions {
 
     @Given("browser {string}")
     public void i_open_browser_as(String browser) {
-        if(browser.equals("chrome")){
-            driver = new ChromeDriver();
-        }else{
-            driver = new ChromeDriver();
-        }
-
-        driver.manage().timeouts().implicitlyWait(TIME_WAIT, TimeUnit.SECONDS);
-        wait = new WebDriverWait(driver, TIME_WAIT);
+        
     }
 
     @When("I enter url as {string}")
@@ -55,14 +56,9 @@ public class StepDefinitions {
         driver.get(url);
 
         // Accept cookies
-        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(0)); // the first frame available is 0 (if there is any)
+        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(0)); // the first frame available is 0 (if there
+                                                                           // is any)
         driver.findElement(By.xpath("//*[@id='introAgreeButton']/span/span")).click();
-    }
-
-    @And("I write {string}")
-    public void i_write(String keysToSend) {
-        driver.findElement(By.name("q")).sendKeys(keysToSend);
-        driver.findElement(By.name("btnK")).click();
     }
 
     @And("I select {string}")
